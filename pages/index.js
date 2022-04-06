@@ -7,10 +7,15 @@ import { LOGIN_REQUEST } from '../services/msal';
 
 
 function WelcomeUser() {
-  const { accounts } = useMsal();
-  const name = accounts[0].name;
-
+  const { name } = useUser();
   return <p>Welcome, {name}</p>;
+}
+
+function useUser() {
+  const { accounts } = useUser();
+  const isAuthenticated = useIsAuthenticated();
+  const name = accounts[0].name;
+  return { name, isAuthenticated }
 }
 
 function useAutoRedirectionAuthentication() {
