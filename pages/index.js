@@ -7,16 +7,11 @@ import { LOGIN_REQUEST } from '../services/msal';
 
 
 function WelcomeUser() {
-  const { name } = useUser();
+  const {name} = useUser();
   return <p>Welcome, {name}</p>;
 }
 
-function useUser() {
-  const { accounts } = useUser();
-  const isAuthenticated = useIsAuthenticated();
-  const name = accounts[0].name;
-  return { name, isAuthenticated }
-}
+
 
 function useAutoRedirectionAuthentication() {
   const { instance } = useMsal();
@@ -27,7 +22,7 @@ function useAutoRedirectionAuthentication() {
       if (!tokenResponse) {
         instance.loginRedirect(LOGIN_REQUEST);
       } else {
-        // Do somethin with the tokenResponse, eventually call the API gateway
+        // Do something with the tokenResponse, eventually call the API gateway
       }
 
     }
@@ -43,7 +38,7 @@ export default function Home() {
   return (
     <>
       <UnauthenticatedTemplate>
-        {/* Show blank page for unthenthicated user for now */}
+        {/* Show blank page for unauthenticated user for now */}
       </UnauthenticatedTemplate>
       <AuthenticatedTemplate>
         <p>This will only render if a user is signed-in.</p>
@@ -53,3 +48,9 @@ export default function Home() {
   );
 }
 
+
+function useUser() {
+  const { accounts } = useMsal();
+  const name = accounts[0].name;
+  return {name};
+}
